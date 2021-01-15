@@ -37,6 +37,16 @@ router.post('/', (req, res) => {
 })
 
 // clôture d'une conversation
+router.put('/:conversationId', (req, res) => {
+    const conversation_id = req.params.conversationId;
+    connection.query('UPDATE conversation SET is_open = 0 where id = ?;', conversation_id, (err, results) => {
+        if (err) {
+            res.status(500).send('Erreur lors de la récupération des conversations.');
+        } else {
+            res.json(results);
+        }
+    });
+});
 
 
 
