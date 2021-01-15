@@ -5,7 +5,7 @@ const { connection } = require('../../connection');
 router.get('/', (req, res) => {
     connection.query('SELECT * FROM conversation ORDER BY id', (err, results) => {
         if (err) {
-            res.status(500).send('Erreur lors de la récupération des conversations');
+            res.status(500).send('Erreur lors de la récupération des conversations.');
         } else {
             res.json(results);
         }
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 router.get('/open', (req, res) => {
     connection.query('SELECT * FROM conversation WHERE is_open = 1 ORDER BY id', (err, results) => {
         if (err) {
-            res.status(500).send(`Erreur lors de la récupération des conversations : ${err.message}`);
+            res.status(500).send(`Erreur lors de la récupération des conversations.`);
         } else {
             res.json(results);
         }
