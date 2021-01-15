@@ -25,7 +25,16 @@ router.get('/open', (req, res) => {
 
 
 // création d'une nouvelle conversation
+router.post('/', (req, res) => {
+    connection.query('INSERT INTO conversation (is_open) VALUES (1)', (err, results) => {
+        if (err) {
+            res.status(500).send('Erreur lors de la création de la conversation.');
+        } else {
+            res.json(results);
+        }
+    })
 
+})
 
 // clôture d'une conversation
 
