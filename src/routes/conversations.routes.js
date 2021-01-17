@@ -5,7 +5,7 @@ const { connection } = require('../../connection');
 router.get('/', (req, res) => {
     connection.query('SELECT * FROM conversation ORDER BY id', (err, results) => {
         if (err) {
-            res.status(500).send('Erreur lors de la récupération des conversations');
+            res.status(500).send('Erreur lors de la récupération des conversations.');
         } else {
             res.json(results);
         }
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 router.get('/open', (req, res) => {
     connection.query('SELECT * FROM conversation WHERE is_open = 1 ORDER BY id', (err, results) => {
         if (err) {
-            res.status(500).send(`Erreur lors de la récupération des conversations : ${err.message}`);
+            res.status(500).send(`Erreur lors de la récupération des conversations.`);
         } else {
             res.json(results);
         }
@@ -25,9 +25,28 @@ router.get('/open', (req, res) => {
 
 
 // création d'une nouvelle conversation
+router.post('/', (req, res) => {
+    connection.query('INSERT INTO conversation (is_open) VALUES (1)', (err, results) => {
+        if (err) {
+            res.status(500).send('Erreur lors de la création de la conversation.');
+        } else {
+            res.json(results);
+        }
+    })
 
+})
 
 // clôture d'une conversation
+router.put('/:conversationId', (req, res) => {
+    const conversation_id = req.params.conversationId;
+    connection.query('UPDATE conversation SET is_open = 0 where id = ?;', conversation_id, (err, results) => {
+        if (err) {
+            res.status(500).send('Erreur lors de la récupération des conversations.');
+        } else {
+            res.json(results);
+        }
+    });
+});
 
 
 
